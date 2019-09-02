@@ -1,0 +1,251 @@
+﻿@model GateBoys.ViewModels.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Payment";
+}
+<section>
+    @{
+        var od = TempData["Order"] as GateBoys.Models.Order;
+
+        if (od == null || od.TotalOrderCost == 0)
+        {
+          <div class="container">
+              <div>
+                  <br />
+                  <br />
+                  <div class="alert alert-danger alert-dismissable">
+                      <button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
+                      Shopping cart is empty.
+                  </div>
+                  <br />
+                  <p> Sorry your shopping cart is empty please click <a href="/Main/Index">here</a> to continue shopping</p>
+                  <br />
+                  <br />
+              </div>
+          </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <br /><br />
+                <h3>Your Order :)</h3>
+                <hr />
+                <br />
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <p>Personal Details</p>
+                        <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                            <table class="timetable_sub">
+                                <thead>
+
+                                    <tr>
+                                        <th><b>Name(s)</b></th>
+                                        <td style="background-color:white;color:black">@TempData["naaam"]</td>
+                                    </tr>
+                                    <tr>
+                                        <th><b>Cell Number</b></th>
+                                        <td style="background-color:white;color:black">@od.Cell</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="col  col-md-6">
+
+                        <p>Order Details</p>
+                        <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                            <table class="timetable_sub">
+                                <thead>
+
+                                    <tr>
+                                        <th><b>Order Number</b></th>
+                                        <td style="background-color:white;color:black">@od.OrderNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <th><b>Status</b></th>
+
+                                        <td style="background-color:white;color:black">
+                                            <h4>Awaiting Payment</h4>
+                                        </td>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col col-md-6">
+                        Items Ordered
+
+                        <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                            <table id="myTable" class="timetable_sub">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Item
+                                        </th>
+                                        <th>
+                                            Image
+                                        </th>
+                                        <th>
+                                            Qty
+                                        </th>
+                                        <th>
+                                            Price
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var item in Model.CartItems)
+                                    {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.product.productName)
+                                        </td>
+                                        <td>
+                                            <img src="/InventoryProducts/GetPic/@Html.DisplayFor(modelItem=>item.productID)" width="80" height="120" />
+
+                                        </td>
+                                        <td class="invert" id="item-count-@item.RecordId">
+                                            <div class="quantity">
+                                                @if (item.product.quantityOnHand == 0)
+                                                {
+                                                    <div class="quantity-select">
+                                                        <a href="/ShoppingCart/Minus_1/@item.RecordId">
+                                                            <div class="entry value-minus">&nbsp;</div>
+                                                        </a>
+
+                                                        <div class="entry value"><span>@item.Count</span></div>
+                                                        <a href="/ShoppingCart/Plus_1/@item.RecordId">
+                                                            <div class="entry value-plus active">&nbsp;</div>
+                                                        </a>
+                                                    </div>
+                                                    <br />
+                                                    <label>Out of stock !!</label>
+                                                }
+                                                else if (item.product.quantityOnHand < item.product.minimumStock && item.product.quantityOnHand != 0)
+                                                { <div class="quantity-select">
+                                                        <a href="/ShoppingCart/Minus_1/@item.RecordId">
+                                                            <div class="entry value-minus">&nbsp;</div>
+                                                        </a>
+
+                                                        <div class="entry value"><span>@item.Count</span></div>
+                                                        <a href="/ShoppingCart/Plus_1/@item.RecordId">
+                                                            <div class="entry value-plus active">&nbsp;</div>
+                                                        </a>
+                                                    </div>
+                                                    <br />
+                                                    <label>Running Low !!</label>
+                                                }
+                                                else if (item.product.quantityOnHand > item.product.minimumStock)
+                                                { <div class="quantity-select">
+                                                        <a href="/ShoppingCart/Minus_1/@item.RecordId">
+                                                            <div class="entry value-minus">&nbsp;</div>
+                                                        </a>
+
+                                                        <div class="entry value"><span>@item.Count</span></div>
+                                                        <a href="/ShoppingCart/Plus_1/@item.RecordId">
+                                                            <div class="entry value-plus active">&nbsp;</div>
+                                                        </a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            R @Html.DisplayFor(modelItem => item.product.unitPrice)
+                                        </td>
+
+                                    </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <h3>
+                                                R @od.TotalOrderCost
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="col  col-md-6">
+                        <p>Shipping Details</p>
+                        <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                            <table class="timetable_sub">
+                                <thead>
+
+                                    <tr>
+                                        <th width="40%"><b>Address</b></th>
+                                        <td width="60%" style="background-color:white;color:black">
+
+                                            @if (od.DeliveryAddress != null)
+                                            {
+                                                @TempData["Address"]
+                                            }
+                                            else
+                                            {
+                                                <hr />
+                                                <p>
+                                                    Collect your order at our warehouse.
+                                                    <br />
+                                                    <i class="fa fa-map-marker"></i> 10 Lemon Reef Pk, Douglas Crowe Dve, Ballito Business Pk, Ballito, 4420
+                                                    <br />
+                                                    <i class="fa fa-clock-o"></i>  8:30 am - 17:00 working hours
+                                                    <br />
+                                                </p>
+                                            }
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                      
+                            <br />
+                            @if (od.TotalOrderCost == 0)
+                            {
+                                <p> Sorry your shopping cart is empty please click <a href="/Main/Index">here</a> to continue shopping</p>
+                            }
+                            else
+                            {
+
+                                if (od.DeliveryAddress != null)
+                                {
+                                    @*<a href="@Url.Action("PayFast", "ShoppingCart", new { Amount = od.TotalOrderCost,delcl="deliver" ,oid= od.OrderNumber})" class="btn-common btn-theme">Checkout</a>*@
+                                    <div class="checkout-left">
+                                        <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                                            <a href="@Url.Action("PayFast", "ShoppingCart", new { Amount = od.TotalOrderCost,delcl="deliver" ,oid= od.OrderNumber})">Checkout &nbsp; &nbsp; <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="checkout-left">
+                                        <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                                            <a href="@Url.Action("PayFast", "ShoppingCart", new { Amount = od.TotalOrderCost,delcl="collect",oid= od.OrderNumber })">Checkout &nbsp; &nbsp; <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+                                        </div>
+                                    </div>
+                                    @*<a href="@Url.Action("PayFast", "ShoppingCart", new { Amount = od.TotalOrderCost,delcl="collect",oid= od.OrderNumber })">Checkout</a>*@
+                                }
+                            }
+
+
+
+                    </div>
+                </div>
+            </div>
+            }
+    }
+</section>
+

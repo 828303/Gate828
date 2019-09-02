@@ -1,0 +1,51 @@
+﻿@model IdentitySample.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<div>
+    <br />
+    <br />
+    <div class="container">
+        <div class="col-md-8 col-md-offset-4">
+            <section id="">
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="login-bottom">
+                        <h3>Sign up for free</h3>
+                        <form>
+                            <br />
+                            @Html.ValidationSummary("", new { @class = "text-danger" }) <br />
+                            <div class="sign-up">
+                                <h4>Email :</h4>
+                                <input type="text" placeholder="email" name="Email" required>
+                            </div>
+                            <div class="sign-up">
+                                <h4>Password :</h4>
+                                <input type="password" placeholder="Password" name="Password" required>
+
+                            </div>
+                            <div class="sign-up">
+                                <h4>Re-type Password :</h4>
+                                <input type="password" placeholder="Password" name="ConfirmPassword">
+
+                            </div>
+                            <div class="sign-up">
+                                <input type="submit" value="REGISTER NOW">
+                                @Html.ActionLink("Have an account?", "Login")
+
+                            </div>
+
+                        </form>
+                    </div>
+                }
+
+            </section>
+        </div>
+    </div>
+</div>

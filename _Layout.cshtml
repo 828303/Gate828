@@ -1,0 +1,508 @@
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gateboys</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Smart Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="~/style/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- pignose css -->
+    <link href="~/style/css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
+
+
+    <!-- //pignose css -->
+    <link href="~/style/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- js -->
+    <script type="text/javascript" src="~/style/js/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- cart -->
+    <script src="~/style/js/simpleCart.min.js"></script>
+    <!-- cart -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="~/style/js/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+    <script src="~/style/js/jquery.easing.min.js"></script>
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="container">
+            <ul>
+                <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>Free and Fast Delivery</li>
+                <li><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Free shipping On all orders</li>
+                <li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:tvandgateboyz89@gmail.com">tvandgateboyz89@gmail.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- header-bot -->
+    <div class="header-bot">
+        <div class="container">
+            <div class="col-md-3 header-left">
+                <h1><a href="/home/index"><img src="~/style/images/logo.png"></a></h1>
+            </div>
+            <div class="col-md-6 header-middle">
+                @if (!User.IsInRole("Stock Manager") && !User.IsInRole("Parcel Handler")
+                     && !User.IsInRole("Driver") && !User.IsInRole("Admin"))
+                {
+                <form>
+                    @using (Html.BeginForm("bySearch", "Main", FormMethod.Get))
+                    {
+                        <div class="search" style="width: 90%;">
+                            <input type="search" placeholder="search products" name="search" value="@ViewBag.search" required="">
+                        </div>
+                        <div class="sear-sub">
+                            <input type="submit" value=" ">
+                        </div>
+                        <div class="clearfix"></div>
+                    }
+                </form>
+
+                }
+            </div>
+            <div class="col-md-3 header-right footer-bottom">
+                <ul>
+                    <li><a class="fb" href="#"></a></li>
+                    <li><a class="twi" href="#"></a></li>
+                    <li><a class="insta" href="#"></a></li>
+                    <li><a class="you" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //header-bot -->
+    <!-- banner -->
+    <div class="ban-top">
+        <div class="container">
+            <div class="top_nav_left">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav menu__list">
+                                <li class=" menu__item"><a class="menu__link" href="/Home/index">Home</a></li>
+                                @*Admin*@
+                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                    <li class="dropdown menu__item">
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Overview <span class="caret"></span></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            <div class="row">
+                                                <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
+                                                    <a href="mens.html"><img src="~/style/images/woo1.jpg" alt=" " /></a>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="/orders/index">Orders</a></li>
+                                                        <li><a href="/trackorders/GetSearchRecord">Track Orders</a></li>
+                                                        <li><a href="/Category_/Index">Categories</a></li>
+                                                        <li><a href="/Brands/index">Brands</a></li>
+                                                        <li><a href="/suppliers/index">Suppliers</a></li>
+                                                        <li><a href="/Inventoryproducts/index">Products</a></li>
+                                                        <li><a href="/home/manage">Manage dashboad</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="/addinfoes/index">Customers</a></li>
+                                                        <li><a href="/drivers/index">Drivers</a></li>
+                                                        <li><a href="/parcelhandlers/index">Parcel Handlers</a></li>
+                                                        <li><a href="/stockmanagers/index">Stock managers</a></li>
+                                                        <li><a href="/inventoryproducts/alert">Manage Stock</a></li>
+                                                        <li><a href="/ordersupplies/index">Ordered Stock</a></li>
+                                                        <li><a href="/orders/getMonthSales">Sales Report</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown menu__item">
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            <div class="row">
+                                                <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
+                                                    <a href="#"><img src="~/style/images/woo1.jpg" alt=" " /></a>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        @*<li><a href="/orders/index">Orders</a></li>*@
+                                                        <li><a href="/trackorders/GetSearchRecord">Track Orders</a></li>
+                                                        <li><a href="/Category_/Create">Add Categories</a></li>
+                                                        <li><a href="/Brands/Create">Add Brands</a></li>
+                                                        <li><a href="/suppliers/Create">Add Suppliers</a></li>
+                                                        <li><a href="/Inventoryproducts/Create">Add Products</a></li>
+                                                        <li><a href="/home/manage">Manage dashboad</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        @*<li><a href="/addinfoes/index">Customers</a></li>*@
+                                                        <li><a href="/UsersAdmin/Create">Add Drivers</a></li>
+                                                        <li><a href="/UsersAdmin/Create">Add Parcel Handlers</a></li>
+                                                        <li><a href="/UsersAdmin/Create">Stock managers</a></li>
+                                                        @*<li><a href="/inventoryproducts/alert">Manage Stock</a></li>*@
+                                                        <li><a href="/RolesAdmin/Create">Add Role</a></li>
+                                                        <li><a href="/orders/getMonthSales">Sales Report</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                }
+                                @*customer*@
+                                @if (Request.IsAuthenticated && !User.IsInRole("Admin")
+                                    && !User.IsInRole("Stock Manager") && !User.IsInRole("Parcel Handler")
+                                    && !User.IsInRole("Driver"))
+                                {
+
+                                    <li class=" menu__item"><a class="menu__link" href="/main/index">Store</a></li>
+                                    <li class=" menu__item">
+                                        <a href="/ShoppingCart/index">
+                                            <h3>
+                                                <div class="total" style=" margin-top: -32px;">
+                                                    <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                                                    @{Html.RenderAction("CartSummary", "ShoppingCart");}
+                                                </div>
+
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class=" menu__item"><a class="menu__link" href="/orders/myOrders">My Orders</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="/home/about">About</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="/home/contact">contact</a></li>
+                                }
+
+                                @*Visitor*@
+                                @if (Request.IsAuthenticated == false)
+                                {
+
+                                    <li class=" menu__item"><a class="menu__link" href="/main/index">Store</a></li>
+                                    <li class=" menu__item">
+                                        <a href="/ShoppingCart/index">
+                                            <h3>
+                                                <div class="total" style=" margin-top: -32px;">
+                                                    <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                                                    @{Html.RenderAction("CartSummary", "ShoppingCart");}
+                                                </div>
+
+                                            </h3>
+                                        </a>
+                                    </li>
+                                    <li class=" menu__item"><a class="menu__link" href="/home/about">About</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="/home/contact">contact</a></li>
+                                }
+                                @*stock manager*@
+                                @if (Request.IsAuthenticated && User.IsInRole("Stock Manager"))
+                                {
+
+                                    @*<li class=" menu__item"><a class="menu__link" href="/Category_/index">Categories</a></li>
+            <li class=" menu__item"><a class="menu__link" href="/brands/index">Brands</a></li>
+            <li class=" menu__item"><a class="menu__link" href="/inventoryproducts/index">Products</a></li>
+            <li class=" menu__item"><a class="menu__link" href="/inventoryproducts/alert">Manage Stock</a></li>
+            <li class=" menu__item"><a class="menu__link" href="/OrderSupplies/Index">Ordered Stock</a></li>
+            <li class=" menu__item"><a class="menu__link" href="/orders/getMonthSales">Sales Report</a></li>*@
+
+
+                                    <li class="dropdown menu__item">
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Store <span class="caret"></span></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            <div class="row">
+                                                <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
+                                                    <a href="#"><img src="~/style/images/woo1.jpg" alt=" " /></a>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        @*<li><a href="/orders/index">Orders</a></li>*@
+                                                        <li><a href="/Category_/Index">View Categories</a></li>
+                                                        <li><a href="/Brands/Index">View Brands</a></li>
+                                                        <li><a href="/suppliers/Index">View Suppliers</a></li>
+                                                        <li><a href="/Inventoryproducts/Index">View Products</a></li>
+                                                        <li><a href="/trackorders/index">Track Parcels</a></li>
+                                                        <li><a href="/trackorders/GetSearchRecord">Search Orders</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="/addinfoes/index">Customers</a></li>
+                                                        <li><a href="/Category_/Create">Add Category</a></li>
+                                                        <li><a href="/Brands/Create">Add Brands</a></li>
+                                                        <li><a href="/suppliers/Create">Add Suppliers</a></li>
+                                                        <li><a href="/Inventoryproducts/Create">Add Products</a></li>
+                                                        <li><a href="/orders/getMonthSales">Sales Report</a></li>
+                                                        <li><a href="/OrderSupplies/Index">Ordered Stock</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                }
+                                @*Parcel handler*@
+                                @if (Request.IsAuthenticated && User.IsInRole("Parcel Handler"))
+                                {
+
+                                    <li class=" menu__item"><a class="menu__link" href="/trackorders/index">Update Orders</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="/trackorders/GetSearchRecord">Search Orders</a></li>
+                                }
+                                @*Driver*@
+                                @if (Request.IsAuthenticated && User.IsInRole("Driver"))
+                                {
+
+                                    <li class=" menu__item"><a class="menu__link" href="/TrackOrders/assignedToMe">Orders</a></li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            @Html.Partial("_LoginPartial")
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //banner-top -->
+    <div>
+        @RenderBody()
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3 footer-left">
+                <h2><a href="/Home"><img src="~/style/images/logo.png" alt=" " /></a></h2>
+                <p>
+                    TV&GateBoyz assists in Gate Automation, Satellites and Decoders, CCTV and
+                    Access Control and Intercom Systems.
+                    TV&GateBoyz is a business that provides affordable security services in KwaZulu-Natal,
+                    South Africa.
+                </p>
+            </div>
+            <div class="col-md-9 footer-right">
+                <div class="col-sm-6 newsleft">
+                    <h3>SIGN UP FOR NEWSLETTER !</h3>
+                </div>
+                <div class="col-sm-6 newsright">
+                    <form>
+                        <input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+                <div class="sign-grds">
+                    <div class="col-md-4 sign-gd">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="/Home">Home</a></li>
+                            <li><a href="/Home/Contact">Men's Wear</a></li>
+                            <li><a href="/Home/About">Women's Wear</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 sign-gd-two">
+                        <h4>Store Information</h4>
+                        <ul>
+                            <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Address : 10 Lemon Reef Pk, Douglas Crowe Dve, Ballito Business Pk, Ballito, 4420</li>
+                            <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email : <a href="mailto:tvandgateboyz89@gmail.com">	tvandgateboyz89@gmail.com</a></li>
+                            <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone : +1234 567 567</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 sign-gd flickr-post">
+                        <h4>Flickr Posts</h4>
+                        <ul>
+                            <li><a href="#"><img src="~/style/images/b15.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b16.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b17.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b18.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b15.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b16.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b17.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b18.jpg" alt=" " class="img-responsive" /></a></li>
+                            <li><a href="#"><img src="~/style/images/b15.jpg" alt=" " class="img-responsive" /></a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <p class="copy-right">&copy 2016 Smart Shop. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- login -->
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body modal-spa">
+                    <div class="login-grids">
+                        <div class="login">
+                            <div class="login-bottom">
+                                <h3>Sign up for free</h3>
+                                <form>
+                                    <div class="sign-up">
+                                        <h4>Email :</h4>
+                                        <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Password :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>Re-type Password :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <input type="submit" value="REGISTER NOW">
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="login-right">
+                                <h3>Sign in with your account</h3>
+                                <form>
+                                    <div class="sign-in">
+                                        <h4>Email :</h4>
+                                        <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                    </div>
+                                    <div class="sign-in">
+                                        <h4>Password :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                                        <a href="#">Forgot password?</a>
+                                    </div>
+                                    <div class="single-bottom">
+                                        <input type="checkbox" id="brand" value="">
+                                        <label for="brand"><span></span>Remember Me.</label>
+                                    </div>
+                                    <div class="sign-in">
+                                        <input type="submit" value="SIGNIN">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <p>By logging in you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //login -->
+    @*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script>
+            $(function () { // will trigger when the document is ready
+                $('.datepicker').datepicker({
+                    beforeShowDay: $.datepicker.noWeekends,
+                    dateFormat: "yy/mm/dd",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-10:0",
+                    showToday: false,
+                    minDate: +0
+                }); //Initialise any date pickers
+            });
+        </script>*@
+    @Scripts.Render("~/bundles/jqueryui")
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'yy/mm',
+                yearRange: "-10:+0",
+                showMonthAfterYear: true,
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+@*
+        <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Store", "Index", "Main")</li>
+
+                        <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                            <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@

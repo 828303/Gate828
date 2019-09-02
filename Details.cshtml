@@ -1,0 +1,186 @@
+﻿@model GateBoys.Models.InventoryProduct
+@using  IdentitySample.Models
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Product - " + Model.productName;
+}
+
+<br />
+<br />
+@using (Html.BeginForm("Details", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <!-- single -->
+    <div class="single">
+        <div class="container">
+            <div class="col-md-4 single-right-left animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
+                <div class="grid images_3_of_2">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="/InventoryProducts/GetPic/@Html.DisplayFor(modelItem => modelItem.productId)">
+                                <div class="thumb-image"> 
+                                <img src="/InventoryProducts/GetPic/@Html.DisplayFor(modelItem => modelItem.productId)"
+                                     alt="@Html.DisplayNameFor(modelitem=>modelitem.productName)"
+                                     data-imagezoom="true" class="img-responsive"> 
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
+                <h3>@Html.DisplayNameFor(modelitem => modelitem.productName)</h3>
+                @{
+                    ApplicationDbContext db = new ApplicationDbContext();
+                    string prodId = Html.DisplayFor(x => x.productId).ToString();
+                    int id = Convert.ToInt32(prodId);
+                    var product = db.Products.FirstOrDefault(a => a.productId == id);
+
+                }
+                @if (product.onPromotion == true)
+                {
+
+                    <p><span class="item_price">R @product.prevUnitPrice</span> <del>R @product.unitPrice</del></p>
+                }
+                else
+                {
+                    <p><span class="item_price">R @product.unitPrice</span></p>
+                }
+
+                <table class="table table-striped">
+                    <tr>
+                        <td><strong>Brand Name</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>@Model.brandName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        @if (Model.quantityOnHand < Model.minimumStock)
+                        {
+
+                            <td>Almost gone!!!</td>
+                        }
+                        else if (Model.quantityOnHand > Model.minimumStock)
+                        {
+
+                            <td>Available</td>
+                        }
+                        else if (Model.quantityOnHand == 0)
+                        {
+
+                            <td>Out of stock</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td><strong>Description</strong> </td>
+                        <td>@Model.productDescription</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h2>
+                                <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                                <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                                <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                                <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                                <span class="glyphicon glyphicon-star" style="color:orange"></span>
+                            </h2>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+
+                    @if (Model.quantityOnHand > 0)
+                    {
+                       <table style="width:60%">
+                           <tr>
+                               <td>
+                                   <div class="occasion-cart">
+                                       <a href="/main/index" class="item_add hvr-outline-out button2">Continue Shopping</a>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="occasion-cart">
+                                       <a href="/ShoppingCart/AddToCart/@Model.productId" class="item_add hvr-outline-out button2">Add to cart</a>
+                                    </div>
+                               </td>
+                           </tr>
+                       </table>
+                        @*<div class="list-inline">
+            </div>*@
+                    }
+                    else if (Model.quantityOnHand == 0)
+                    {
+
+                        <div class="occasion-cart">
+                            <a href="/main/index" class="item_add hvr-outline-out button2">Continue Shopping</a>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="clearfix"> </div>
+
+            <div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
+                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
+                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews(0)</a></li>
+                      
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
+                            <h5>Product Brief Description</h5>
+                            <p>
+                               @product.productDescription
+                            </p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
+                            <div class="bootstrap-tab-text-grids">
+                               Currently there are no evaluations
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //single -->
+    <!-- //product-nav -->
+    <div class="coupons">
+        <div class="container">
+            <div class="coupons-grids text-center">
+                <div class="col-md-3 coupons-gd">
+                    <h3>Buy your product in a simple way</h3>
+                </div>
+                <div class="col-md-3 coupons-gd">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <h4>LOGIN TO YOUR ACCOUNT</h4>
+                    <p>
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor
+                        sit amet, consectetur.
+                    </p>
+                </div>
+                <div class="col-md-3 coupons-gd">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <h4>SELECT YOUR ITEM</h4>
+                    <p>
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor
+                        sit amet, consectetur.
+                    </p>
+                </div>
+                <div class="col-md-3 coupons-gd">
+                    <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
+                    <h4>MAKE PAYMENT</h4>
+                    <p>
+                        Neque porro quisquam est, qui dolorem ipsum quia dolor
+                        sit amet, consectetur.
+                    </p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+}

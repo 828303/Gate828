@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Our Products";
+}
+
+@model IEnumerable<GateBoys.Models.InventoryProduct>
+
+@using (Html.BeginForm("Create", "InventoryProducts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+}
+@{
+    IdentitySample.Models.ApplicationDbContext db = new IdentitySample.Models.ApplicationDbContext();
+
+}
+<div class="men-wear">
+    <div class="container">
+        <div class="col-md-9 products-left">
+            <div class="row">
+
+                @foreach (var c in Model)
+                {
+                    <div class="col-md-4 product-men" style="margin:0 0 24px 0;">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item">
+                                <img src="/InventoryProducts/GetPic/@Html.DisplayFor(modelItem => c.productId)" alt="@Html.DisplayFor(modelItem => c.productName)" class="pro-image-front">
+                                <img src="/InventoryProducts/GetPic/@Html.DisplayFor(modelItem => c.productId)" alt="@Html.DisplayFor(modelItem => c.productName)" class="pro-image-back">
+                                <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                        <a href="/Main/Details/@c.productId" class="link-product-add-cart">Quick View</a>
+                                    </div>
+                                </div>
+                                @if (c.onPromotion == true)
+                                {
+                                    <span class="product-new-top">Sale</span>
+                                }
+                            </div>
+                            <div class="item-info-product ">
+                                <h4><a href="/Main/Details/@c.productId">@c.productName</a></h4>
+                                <div class="info-product-price">
+
+                                    @* <del>$69.71</del> to use if in sale *@
+                                    @if (c.onPromotion == true)
+                                    {
+                                        <span class="item_price">@c.prevUnitPrice.ToString("R0.00")</span>
+                                        <del>@c.unitPrice.ToString("R0.00")</del>
+                                    }
+                                    else
+                                    {
+                                        <span class="item_price">@c.unitPrice.ToString("R0.00")</span>
+                                    }
+                                </div>
+                                @if (c.quantityOnHand != 0)
+                                {
+                                    <a href="/ShoppingCart/AddToCart/@c.productId" class="item_add single-item hvr-outline-out button2">Add to cart</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="col-md-3 products-right">
+
+            @using (Html.BeginForm("bySearch", "Main", FormMethod.Get))
+            {
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search product" name="search" value="@ViewBag.search" style="max-width: 800px">
+                    <span class="input-group-btn">
+                        <button class="btn btn-theme" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+                <div class="inner-men-cart-pro">
+                    <a href="/main/Promo" class="link-product-add-cart" style="text-align:center">Promotion</a>
+                </div>
+                <br />
+                <br />
+            }
+            <div class="css-treeview">
+                <h4>Categories</h4>
+
+                <ul class="tree-list-pad">
+
+                    @foreach (var category in db.Category_.ToList())
+                    {
+                        <li>
+                            <input type="checkbox" checked="checked" id="@category.categoryId" /><label for="@category.categoryId"><span></span>@category.categoryName</label>
+                            <ul>
+                                @{
+                                    var checkProduct = db.Products.Where(a => a.categoryId == category.categoryId).ToList();
+                                    if (checkProduct != null)
+                                    {
+                                        var brands = db.brands.Where(a => a.categoryId == category.categoryId).ToList();
+                                        foreach (var brand in brands)
+                                        {
+                                            <li>
+                                                <a href="/main/byBrand?bId=@brand.brandId">@brand.brandName</a>
+                                            </li>
+
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </li>
+
+                    }
+                </ul>
+
+
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+<!-- //mens -->
+<!-- //product-nav -->
+<div class="coupons">
+    <div class="container">
+        <div class="coupons-grids text-center">
+            <div class="col-md-3 coupons-gd">
+                <h3>Buy your product in a simple way</h3>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <h4>LOGIN TO YOUR ACCOUNT</h4>
+                <p>
+                    Neque porro quisquam est, qui dolorem ipsum quia dolor
+                    sit amet, consectetur.
+                </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <h4>SELECT YOUR ITEM</h4>
+                <p>
+                    Neque porro quisquam est, qui dolorem ipsum quia dolor
+                    sit amet, consectetur.
+                </p>
+            </div>
+            <div class="col-md-3 coupons-gd">
+                <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
+                <h4>MAKE PAYMENT</h4>
+                <p>
+                    Neque porro quisquam est, qui dolorem ipsum quia dolor
+                    sit amet, consectetur.
+                </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
